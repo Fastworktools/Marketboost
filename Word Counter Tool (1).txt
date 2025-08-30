@@ -1,0 +1,15 @@
+<h2>Word Counter Tool</h2>
+<textarea id="textInput" rows="10" cols="50" placeholder="Type or paste your text here..."></textarea>
+<br><br>
+<button onclick="countWords()">Count Words</button>
+<p id="result"></p>
+
+<script>
+  function countWords() {
+    const text = document.getElementById("textInput").value;
+    const wordCount = text.trim().split(/\s+/).length;
+    const charCount = text.length;
+    document.getElementById("result").innerHTML =
+      "Words: " + wordCount + "<br>Characters: " + charCount;
+  }
+</script>

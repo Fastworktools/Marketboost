@@ -1,0 +1,21 @@
+<h2>Basic SEO Checker</h2>
+<input type="text" id="seoUrl" placeholder="Enter URL" />
+<button onclick="checkSEO()">Check</button>
+<div id="seoResult"></div>
+
+<script>
+  function checkSEO() {
+    const url = document.getElementById("seoUrl").value;
+    document.getElementById("seoResult").innerHTML = `
+      <p>Checking SEO for: <strong>${url}</strong></p>
+      <ul>
+        <li>✅ Title tag found</li>
+        <li>✅ Meta description present</li>
+        <li>❌ Missing H1 tag</li>
+        <li>✅ Mobile-friendly</li>
+        <li>✅ Alt attributes found</li>
+      </ul>
+      <p><em>*This is a sample output. For advanced results, consider integrating real-time APIs like SiteCheck or SerpAPI.</em></p>
+    `;
+  }
+</script>

@@ -1,0 +1,100 @@
+<h2 style="text-align:center;">🔄 WebP Image Converter</h2>
+<div id="converter-box">
+  <input type="file" id="imageInput" accept="image/*" />
+  <button onclick="convertToWebp()">Convert to WebP</button>
+  <br><br>
+  <div id="webpOutput"></div>
+</div>
+
+<style>
+  #converter-box {
+    width: 90%;
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 30px;
+    border: 2px dashed #aaa;
+    text-align: center;
+    background: #f9f9f9;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+
+  #imageInput {
+    margin: 10px 0;
+    padding: 8px;
+  }
+
+  button {
+    padding: 10px 20px;
+    background: #0073e6;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 16px;
+  }
+
+  button:hover {
+    background: #005bb5;
+  }
+
+  #webpOutput img {
+    margin-top: 20px;
+    max-width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+  }
+
+  #downloadBtn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+  }
+
+  #downloadBtn:hover {
+    background-color: #218838;
+  }
+</style>
+
+<script>
+  let webpImageData = "";
+
+  function convertToWebp() {
+    const input = document.getElementById('imageInput');
+    const file = input.files[0];
+
+    if (!file) {
+      alert("Please upload an image first.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const img = new Image();
+      img.onload = function () {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+
+        webpImageData = canvas.toDataURL('image/webp');
+
+        document.getElementById("webpOutput").innerHTML = `
+          <h3>✅ Converted WebP Image:</h3>
+          <img src="${webpImageData}" alt="WebP Image" />
+          <br/>
+          <a id="downloadBtn" href="${webpImageData}" download="converted.webp">Download WebP Image</a>
+        `;
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+</script>
